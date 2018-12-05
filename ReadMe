@@ -1,2 +1,16 @@
-Demonstrate 2 series displayed with Google Charts, data read from file, no parameters passed into html or between html and php
+Demonstrate 2 data series displayed with Google Charts - Line Chart, data read from file, no parameters passed in the calling URL or between html and php
 
+Files:
+
+1 Dual_001.csv    Simple extension of log file structure - timestamp,sensor1,sensor2 - contains 4 records
+
+2 Nget2data.php   Defines values for the 2 sensors - expects no parameters to be passed.
+                  The data file name is pre-defined - Dual_001.csv
+                  Extends the column definitions in the echo command - by example.
+                  Extends the data structure in the echo command following the explode - by example.
+                  
+3 N2Graph.html    Expects NO Parameters in the calling URL.
+                  Calls Nget2data.php with NO parameters.
+                  Differs further from Nico's original sensorgraph.html in that more options in the final display are defined.
+                  
+Making this work with parameter passing is another exercise for the near future.
