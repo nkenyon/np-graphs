@@ -1,0 +1,78 @@
+<html>
+  <head>
+    <title>Temperature chart for Sensor</title>
+
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	
+    <script type="text/javascript">
+	
+//  sensorID_1 = "001"
+//  sensorID_2 = "002"
+
+    document.title = "Temperature chart for 2 Sensors "
+    // Load the Visualization API.
+    google.load('visualization', '1', {'packages':['corechart']});
+     
+    // Set a callback to run when the Google Visualization API is loaded.
+	// This actually calls the function to draw the Chart
+	
+    google.setOnLoadCallback(drawChart);
+     
+    function drawChart() {
+      var jsonData = $.ajax({
+          url: "Nget2data.php",
+          dataType:"json",
+          async: false
+          }).responseText;
+         
+    // Create our data table out of JSON data loaded from server.
+    var data = new google.visualization.DataTable(jsonData);
+	  
+	  // Define the Chart options
+	var options = {
+	chartArea: {
+		top: 28,
+		height: '80%' 
+		},
+	legend: {
+		position: 'top',
+		textStyle: {color: 'blue', fontSize: 24, bold: true}
+		},
+	series: {
+		0: { color: "red" },
+		1: { color: "blue" },
+		},
+    hAxis: {
+        title: 'Date & Time', 
+        titleTextStyle: {color: 'red', fontSize: 30, bold: true},
+        count: -1, 
+		textStyle: {fontSize: 16, bold: true},
+		slantedText: true,
+        viewWindowMode: 'pretty',
+		showTextEvery: 120
+		},  
+    vAxis: {
+        title: 'Temperature (deg C)', 
+        titleTextStyle: {color: 'black', fontSize: 30, bold: true },
+		textStyle: {fontSize: 22, bold: true},
+		viewWindowMode: 'explicit',
+		viewWindow: {min: 0, max: 25},			
+        count: -1 
+		},
+    colors: ['#F1CA3A'],
+    height: 800
+	};
+      // Instantiate and draw our chart, passing in some options.
+      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
+	}
+    </script>
+  </head>
+
+  <body>
+    <!--Div that will hold the chart-->
+    <div id="chart_div"></div>
+  </body>
+</html>
